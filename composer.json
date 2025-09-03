@@ -1,5 +1,7 @@
+
 {
-  "name": "jonathan/fortis-app",
-  "description": "App PHP en Railway",
-  "require": {}
+  "require": {
+    "ext-mysqli": "*"
+  }
 }
+
