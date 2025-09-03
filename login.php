@@ -1,15 +1,19 @@
 <?php
+error_reporting(0);
 include "koneksi.php";
 
-$usuario = $_GET['usuario'];
-$clave   = $_GET['clave'];
+$usuario = isset($_REQUEST['usuario']) ? trim($_REQUEST['usuario']) : '';
+$clave   = isset($_REQUEST['clave']) ? trim($_REQUEST['clave']) : '';
 
-$cek_login = "SELECT * FROM login WHERE usuario = '$usuario' AND clave = '$clave'";
+if ($usuario !== '' && $clave !== '') {
+    $sql = "SELECT * FROM login WHERE usuario='$usuario' AND clave='$clave' LIMIT 1";
+    $result = mysqli_query($koneksi, $sql);
 
-$result = $koneksi->query($cek_login);
-
-if ($result->num_rows > 0) {
-    echo "OK";
+    if ($result && mysqli_num_rows($result) > 0) {
+        echo "OK";
+    } else {
+        echo "Fail";
+    }
 } else {
     echo "Fail";
 }
