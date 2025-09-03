@@ -1,21 +1,19 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
+error_reporting(0);
 include "koneksi.php";
 
-$usuario = $_REQUEST['usuario'];
-$correo  = $_REQUEST['correo'];
-$clave   = $_REQUEST['clave'];
+$usuario = isset($_REQUEST['usuario']) ? $_REQUEST['usuario'] : '';
+$correo  = isset($_REQUEST['correo']) ? $_REQUEST['correo'] : '';
+$clave   = isset($_REQUEST['clave']) ? $_REQUEST['clave'] : '';
 
 if ($usuario != "" && $correo != "" && $clave != "") {
     $sql = "INSERT INTO login (usuario, correo, clave) VALUES ('$usuario', '$correo', '$clave')";
     if (mysqli_query($koneksi, $sql)) {
-        echo "Registro agregado correctamente. Último ID insertado: " . mysqli_insert_id($koneksi);
+        echo "OK";
     } else {
-        echo "Error al insertar: " . mysqli_error($koneksi);
+        echo "Fail";
     }
 } else {
-    echo "Faltan parámetros";
+    echo "Fail";
 }
 ?>
