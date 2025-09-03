@@ -11,7 +11,7 @@ $koneksi = mysqli_connect($host, $username, $password, $database);
 
 if (!$koneksi) {
     die("Error de conexión: " . mysqli_connect_error());
-} else {
-    echo "Conexión exitosa con la base de datos!";
 }
+
+
 ?>
