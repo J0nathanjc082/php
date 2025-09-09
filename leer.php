@@ -58,7 +58,7 @@ $result = mysqli_query($koneksi, $sql);
 </head>
 <body>
 
-<h2>Sistema Rosa de Registro de Candidatas</h2>
+<h2>Registro de Candidatas</h2>
 
 <table>
     <tr>
@@ -71,7 +71,7 @@ $result = mysqli_query($koneksi, $sql);
         <th>Votos</th>
         <th>Dinero Recaudado</th>
         <th>Inscripción</th>
-        <th>Fecha</th>
+       
     </tr>
 
     <?php while ($fila = mysqli_fetch_assoc($result)): ?>
@@ -85,7 +85,7 @@ $result = mysqli_query($koneksi, $sql);
         <td class="votos"><?= $fila['Votos'] ?></td>
         <td class="dinero">$<?= number_format($fila['Dinero_recaudado'], 2) ?></td>
         <td><?= $fila['Inscripcion'] ?></td>
-        <td><?= $fila['Fecha'] ?></td>
+     
     </tr>
     <?php endwhile; ?>
 </table>
