@@ -1,32 +1,33 @@
 <?php
 include "koneksi.php";
 
-// Si viene por POST, actualizamos
+// Si viene por POST, actualizar todos
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $ID              = $_POST['ID'];
-    $Apellidos        = $_POST['Apellidos'];
-    $Nombres          = $_POST['Nombres'];
-    $Edad             = $_POST['Edad'];
-    $Seccion          = $_POST['Seccion'];
-    $Especialidad     = $_POST['Especialidad'];
-    $Votos            = $_POST['Votos'];
-    $Dinero_recaudado = $_POST['Dinero_recaudado'];
-    $Inscripcion      = $_POST['Inscripcion'];
+    foreach ($_POST['ID'] as $index => $ID) {
+        $Apellidos = $_POST['Apellidos'][$index];
+        $Nombres = $_POST['Nombres'][$index];
+        $Edad = $_POST['Edad'][$index];
+        $Seccion = $_POST['Seccion'][$index];
+        $Especialidad = $_POST['Especialidad'][$index];
+        $Votos = $_POST['Votos'][$index];
+        $Dinero_recaudado = $_POST['Dinero_recaudado'][$index];
+        $Inscripcion = $_POST['Inscripcion'][$index];
 
-    $sql = "UPDATE candidatas 
-            SET Apellidos='$Apellidos',
-                Nombres='$Nombres',
-                Edad='$Edad',
-                Seccion='$Seccion',
-                Especialidad='$Especialidad',
-                Votos='$Votos',
-                Dinero_recaudado='$Dinero_recaudado',
-                Inscripcion='$Inscripcion'
-            WHERE ID='$ID'";
-    mysqli_query($koneksi, $sql);
+        $sql = "UPDATE candidatas 
+                SET Apellidos='$Apellidos',
+                    Nombres='$Nombres',
+                    Edad='$Edad',
+                    Seccion='$Seccion',
+                    Especialidad='$Especialidad',
+                    Votos='$Votos',
+                    Dinero_recaudado='$Dinero_recaudado',
+                    Inscripcion='$Inscripcion'
+                WHERE ID='$ID'";
+        mysqli_query($koneksi, $sql);
+    }
 }
 
-// Consultar tabla
+// Consultar registros
 $sql = "SELECT * FROM candidatas ORDER BY ID ASC";
 $result = mysqli_query($koneksi, $sql);
 ?>
@@ -35,69 +36,81 @@ $result = mysqli_query($koneksi, $sql);
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar Candidatas</title>
     <style>
         body {
-            background-color: #fff0f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 40px;
+            font-family: Arial, sans-serif;
+            background: #ffe6f0;
+            margin: 0;
+            padding: 10px;
         }
         h2 {
             text-align: center;
-            color: #c2185b;
-            margin-bottom: 30px;
-            font-size: 28px;
+            color: #d81b60;
+            margin-bottom: 20px;
+        }
+        .table-container {
+            overflow-x: auto; /* Scroll horizontal en móvil */
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            min-width: 800px; /* Para evitar que se comprima demasiado */
         }
         th, td {
-            padding: 10px;
-            border: 1px solid #f8bbd0;
+            border: 1px solid #f48fb1;
+            padding: 8px;
             text-align: center;
             font-size: 14px;
         }
         th {
-            background-color: #f48fb1;
-            color: #880e4f;
-            font-weight: bold;
-            text-transform: uppercase;
+            background: #f06292;
+            color: white;
         }
         tr:nth-child(even) {
-            background-color: #fce4ec;
-        }
-        tr:hover {
-            background-color: #f3e5f5;
+            background: #fce4ec;
         }
         input {
             width: 100%;
             border: none;
             background: transparent;
             text-align: center;
+            font-size: 14px;
         }
-        button {
-            margin: 10px auto;
+        .btn-guardar {
             display: block;
-            padding: 8px 16px;
+            margin: 20px auto;
             background: #c2185b;
             color: white;
             border: none;
-            border-radius: 6px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
         }
-        button:hover {
+        .btn-guardar:hover {
             background: #880e4f;
+        }
+        @media (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+            th, td {
+                padding: 6px;
+            }
+            input {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
 
-<h2>Editar Registro de Candidatas</h2>
+<h2>Registro de Candidatas</h2>
 
+<form method="POST">
+<div class="table-container">
 <table>
     <tr>
         <th>ID</th>
@@ -109,27 +122,26 @@ $result = mysqli_query($koneksi, $sql);
         <th>Votos</th>
         <th>Dinero Recaudado</th>
         <th>Inscripción</th>
-        <th>Acción</th>
     </tr>
 
     <?php while ($fila = mysqli_fetch_assoc($result)): ?>
-    <form method="POST">
     <tr>
-        <td><input type="text" name="ID" value="<?= $fila['ID'] ?>" readonly></td>
-        <td><input type="text" name="Apellidos" value="<?= $fila['Apellidos'] ?>"></td>
-        <td><input type="text" name="Nombres" value="<?= $fila['Nombres'] ?>"></td>
-        <td><input type="number" name="Edad" value="<?= $fila['Edad'] ?>"></td>
-        <td><input type="text" name="Seccion" value="<?= $fila['Seccion'] ?>"></td>
-        <td><input type="text" name="Especialidad" value="<?= $fila['Especialidad'] ?>"></td>
-        <td><input type="number" name="Votos" value="<?= $fila['Votos'] ?>"></td>
-        <td><input type="number" step="0.01" name="Dinero_recaudado" value="<?= $fila['Dinero_recaudado'] ?>"></td>
-        <td><input type="date" name="Inscripcion" value="<?= $fila['Inscripcion'] ?>"></td>
-        <td><button type="submit">Actualizar</button></td>
+        <td><input type="text" name="ID[]" value="<?= $fila['ID'] ?>" readonly></td>
+        <td><input type="text" name="Apellidos[]" value="<?= $fila['Apellidos'] ?>"></td>
+        <td><input type="text" name="Nombres[]" value="<?= $fila['Nombres'] ?>"></td>
+        <td><input type="number" name="Edad[]" value="<?= $fila['Edad'] ?>"></td>
+        <td><input type="text" name="Seccion[]" value="<?= $fila['Seccion'] ?>"></td>
+        <td><input type="text" name="Especialidad[]" value="<?= $fila['Especialidad'] ?>"></td>
+        <td><input type="number" name="Votos[]" value="<?= $fila['Votos'] ?>"></td>
+        <td><input type="number" step="0.01" name="Dinero_recaudado[]" value="<?= $fila['Dinero_recaudado'] ?>"></td>
+        <td><input type="date" name="Inscripcion[]" value="<?= $fila['Inscripcion'] ?>"></td>
     </tr>
-    </form>
     <?php endwhile; ?>
 </table>
+</div>
+
+<button type="submit" class="btn-guardar">Actualizar Todo</button>
+</form>
 
 </body>
 </html>
-
