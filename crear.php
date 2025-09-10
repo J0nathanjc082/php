@@ -1,14 +1,15 @@
 <?php
 include "koneksi.php";
 
-$Apellidos        = $_POST['Apellidos'];
-$Nombres          = $_POST['Nombres'];
-$Edad             = $_POST['Edad'];
-$Seccion          = $_POST['Seccion'];
-$Especialidad     = $_POST['Especialidad'];
-$Votos            = $_POST['Votos'];
-$Dinero_recaudado = $_POST['Dinero_recaudado'];
-$Inscripcion      = $_POST['fecha_inscripcion']; // manual desde App Inventor
+// Usar $_REQUEST para aceptar tanto POST como GET
+$Apellidos        = isset($_REQUEST['Apellidos']) ? $_REQUEST['Apellidos'] : '';
+$Nombres          = isset($_REQUEST['Nombres']) ? $_REQUEST['Nombres'] : '';
+$Edad             = isset($_REQUEST['Edad']) ? $_REQUEST['Edad'] : '';
+$Seccion          = isset($_REQUEST['Seccion']) ? $_REQUEST['Seccion'] : '';
+$Especialidad     = isset($_REQUEST['Especialidad']) ? $_REQUEST['Especialidad'] : '';
+$Votos            = isset($_REQUEST['Votos']) ? $_REQUEST['Votos'] : '';
+$Dinero_recaudado = isset($_REQUEST['Dinero_recaudado']) ? $_REQUEST['Dinero_recaudado'] : '';
+$Inscripcion      = isset($_REQUEST['fecha_inscripcion']) ? $_REQUEST['fecha_inscripcion'] : '';
 
 $sql = "INSERT INTO candidatas (Apellidos, Nombres, Edad, Seccion, Especialidad, Votos, Dinero_recaudado, Inscripcion)
         VALUES ('$Apellidos','$Nombres','$Edad','$Seccion','$Especialidad','$Votos','$Dinero_recaudado','$Inscripcion')";
@@ -19,4 +20,3 @@ if (mysqli_query($koneksi, $sql)) {
     echo "error: " . mysqli_error($koneksi);
 }
 ?>
-
