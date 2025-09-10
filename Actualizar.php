@@ -41,35 +41,35 @@ $result = mysqli_query($koneksi, $sql);
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #ffe6f0;
+            background: #ffe6f0; /* Rosa claro */
             margin: 0;
             padding: 10px;
         }
         h2 {
             text-align: center;
-            color: #d81b60;
+            color: #d81b60; /* Rosa fuerte */
             margin-bottom: 20px;
         }
         .table-container {
-            overflow-x: auto; /* Scroll horizontal en móvil */
+            overflow-x: auto; /* Scroll horizontal solo en pantallas pequeñas */
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 800px; /* Para evitar que se comprima demasiado */
+            min-width: 800px; /* Para que no se comprima demasiado */
         }
         th, td {
-            border: 1px solid #f48fb1;
+            border: 1px solid #f48fb1; /* Borde rosa claro */
             padding: 8px;
             text-align: center;
             font-size: 14px;
         }
         th {
-            background: #f06292;
+            background: #f06292; /* Rosa más fuerte */
             color: white;
         }
         tr:nth-child(even) {
-            background: #fce4ec;
+            background: #fce4ec; /* Rosa muy suave */
         }
         input {
             width: 100%;
@@ -81,7 +81,7 @@ $result = mysqli_query($koneksi, $sql);
         .btn-guardar {
             display: block;
             margin: 20px auto;
-            background: #c2185b;
+            background: #c2185b; /* Botón rosa oscuro */
             color: white;
             border: none;
             padding: 10px 20px;
@@ -90,8 +90,9 @@ $result = mysqli_query($koneksi, $sql);
             cursor: pointer;
         }
         .btn-guardar:hover {
-            background: #880e4f;
+            background: #880e4f; /* Hover más oscuro */
         }
+        /* Ajuste responsivo */
         @media (max-width: 768px) {
             table {
                 font-size: 12px;
