@@ -9,50 +9,47 @@ $result = mysqli_query($koneksi, $sql);
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Estado de Candidatas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Candidatas</title>
     <style>
         body {
-            background-color: #fff0f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 40px;
+            font-family: Arial, sans-serif;
+            background: #fff0f5;
+            margin: 0;
+            padding: 10px;
         }
         h2 {
             text-align: center;
             color: #c2185b;
-            margin-bottom: 30px;
-            font-size: 28px;
+            margin: 15px 0;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            padding: 15px;
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #f8bbd0;
-            text-align: center;
+        .card h3 {
+            margin: 0;
+            color: #d81b60;
+            font-size: 18px;
+        }
+        .field {
+            margin: 5px 0;
             font-size: 14px;
         }
-        th {
-            background-color: #f48fb1;
+        .label {
+            font-weight: bold;
             color: #880e4f;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        tr:nth-child(even) {
-            background-color: #fce4ec;
-        }
-        tr:hover {
-            background-color: #f3e5f5;
-        }
-        .dinero {
-            font-weight: bold;
-            color: #4e342e;
         }
         .votos {
-            font-weight: bold;
             color: #6a1b9a;
+            font-weight: bold;
+        }
+        .dinero {
+            color: #4e342e;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -60,35 +57,19 @@ $result = mysqli_query($koneksi, $sql);
 
 <h2>Registro de Candidatas</h2>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Apellidos</th>
-        <th>Nombres</th>
-        <th>Edad</th>
-        <th>Sección</th>
-        <th>Especialidad</th>
-        <th>Votos</th>
-        <th>Dinero Recaudado</th>
-        <th>Inscripción</th>
-       
-    </tr>
-
-    <?php while ($fila = mysqli_fetch_assoc($result)): ?>
-    <tr>
-        <td><?= $fila['ID'] ?></td>
-        <td><?= $fila['Apellidos'] ?></td>
-        <td><?= $fila['Nombres'] ?></td>
-        <td><?= $fila['Edad'] ?></td>
-        <td><?= $fila['Seccion'] ?></td>
-        <td><?= $fila['Especialidad'] ?></td>
-        <td class="votos"><?= $fila['Votos'] ?></td>
-        <td class="dinero">$<?= number_format($fila['Dinero_recaudado'], 2) ?></td>
-        <td><?= $fila['Inscripcion'] ?></td>
-     
-    </tr>
-    <?php endwhile; ?>
-</table>
+<?php while ($fila = mysqli_fetch_assoc($result)): ?>
+<div class="card">
+    <h3><?= $fila['Nombres'] ?> <?= $fila['Apellidos'] ?></h3>
+    <div class="field"><span class="label">ID:</span> <?= $fila['ID'] ?></div>
+    <div class="field"><span class="label">Edad:</span> <?= $fila['Edad'] ?></div>
+    <div class="field"><span class="label">Sección:</span> <?= $fila['Seccion'] ?></div>
+    <div class="field"><span class="label">Especialidad:</span> <?= $fila['Especialidad'] ?></div>
+    <div class="field"><span class="label">Votos:</span> <span class="votos"><?= $fila['Votos'] ?></span></div>
+    <div class="field"><span class="label">Dinero Recaudado:</span> <span class="dinero">$<?= number_format($fila['Dinero_recaudado'], 2) ?></span></div>
+    <div class="field"><span class="label">Inscripción:</span> <?= $fila['Inscripcion'] ?></div>
+</div>
+<?php endwhile; ?>
 
 </body>
 </html>
+
